@@ -4,19 +4,24 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.foodfireproject.models.YelpSearchResult
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
-import com.google.firebase.firestore.FirebaseFirestore
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import com.example.foodfireproject.YelpService
 
 class MainActivity : AppCompatActivity() {
 
+
+
+    val apiSample = "https://api.yelp.com/v3/businesses/search?term=delis&latitude=37.786882&longitude=-122.399972"
     private lateinit var auth: FirebaseAuth
 
     public override fun onStart() {
@@ -39,6 +44,8 @@ class MainActivity : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+
+
         }
 
 

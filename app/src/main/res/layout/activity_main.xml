@@ -5,44 +5,55 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F3F3F3"
+    android:background="@android:color/black"
     tools:context=".MainActivity">
 
 
     <Button
         android:id="@+id/loginButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="75dp"
-        android:layout_marginBottom="264dp"
+        android:layout_width="199dp"
+        android:layout_height="61dp"
+        android:background="@android:color/transparent"
+        android:backgroundTint="#000000"
         android:hint="Login"
         android:textColorHint="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/signupButton"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/signupButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="75dp"
-        android:layout_marginBottom="265dp"
+        android:layout_width="199dp"
+        android:layout_height="61dp"
+        android:background="@android:color/transparent"
         android:hint="Sign up"
         android:textColorHint="#FFFDFD"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/loginButton" />
+
+    <ImageView
+        android:id="@+id/foodFireIV"
+        android:layout_width="408dp"
+        android:layout_height="431dp"
+        app:srcCompat="@drawable/food_fire_high_resolution_logo"
+        tools:layout_editor_absoluteX="3dp"
+        tools:layout_editor_absoluteY="5dp" />
 
     <TextView
-        android:id="@+id/welcomeTV"
+        android:id="@+id/createorloginTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="174dp"
-        android:layout_marginTop="163dp"
-        android:layout_marginEnd="175dp"
-        android:text="Welcome!"
+        android:layout_marginStart="124dp"
+        android:layout_marginTop="96dp"
+        android:layout_marginEnd="105dp"
+        android:background="#000000"
+        android:text="Create an account or sign in"
+        android:textColor="#FFFDFD"
+        android:textColorLink="#FFFDFD"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.375"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/foodFireIV" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
