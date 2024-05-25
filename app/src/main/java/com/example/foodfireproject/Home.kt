@@ -53,12 +53,7 @@ class Home : AppCompatActivity() {
         //findViewById<BottomNavigationView>(R.id.bottom_nav)
         //sign out button
 
-        findViewById<Button>(R.id.signoutButton).setOnClickListener{
-            auth.signOut()
-            Toast.makeText(this, "Signed out successfully", Toast.LENGTH_SHORT).show()
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
-        }
+
         fun permissionRequestAndChangeFragment(fragment:Fragment){
             val permissionList = mutableListOf<String>()
             if(!(ActivityCompat.checkSelfPermission(this,android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)) {

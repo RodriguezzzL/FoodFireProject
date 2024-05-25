@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="85dp"
         android:layout_marginEnd="116dp"
-        android:layout_marginBottom="88dp"
+        android:layout_marginBottom="64dp"
         android:ems="10"
         android:hint="City name"
         android:inputType="text"
@@ -38,13 +38,12 @@
         android:id="@+id/foodSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="158dp"
-        android:layout_marginEnd="162dp"
+        android:layout_marginStart="19dp"
+        android:layout_marginEnd="260dp"
         android:layout_marginBottom="4dp"
-        android:text="start Swiping"
+        android:text="start"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.463"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -52,25 +51,36 @@
         android:layout_width="148dp"
         android:layout_height="63dp"
         android:layout_marginStart="161dp"
+        android:layout_marginTop="160dp"
         android:layout_marginEnd="192dp"
-        android:layout_marginBottom="25dp"
-        app:layout_constraintBottom_toTopOf="@+id/restaurantImageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/foodTv"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/foodTv" />
 
     <ImageView
         android:id="@+id/restaurantImageView"
-        android:layout_width="247dp"
-        android:layout_height="191dp"
+        android:layout_width="268dp"
+        android:layout_height="194dp"
         android:layout_marginStart="139dp"
         android:layout_marginEnd="172dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="56dp"
         app:layout_constraintBottom_toTopOf="@+id/foodCityET"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.387"
+        app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="parent"
         tools:src="@drawable/restaurant_image_placeholder" />
+
+    <Button
+        android:id="@+id/showNextResturantButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="95dp"
+        android:layout_marginEnd="77dp"
+        android:layout_marginBottom="4dp"
+        android:text="next"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/foodSearch" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,10 +17,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import com.bumptech.glide.Glide
-
-
-
-
+import com.example.foodfireproject.models.YelpBusiness
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -42,6 +39,8 @@ class FoodFragment : Fragment() {
 
     private lateinit var restaurantImageView: ImageView
     private lateinit var restaurantTextView: TextView
+    private var currentIndex = 0
+    private var restaurants: List<YelpSearchResult>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,14 +49,17 @@ class FoodFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
     }
+
+
+
     fun fetchLocalRestaurants(location: String) {
         val call = YelpService.api.searchRestaurants(YelpService.getAuthHeader(), "restaurants", location)
         call.enqueue(object : Callback<YelpSearchResult> {
             override fun onResponse(call: Call<YelpSearchResult>, response: Response<YelpSearchResult>) {
-                if (response.isSuccessful) {
+                if (response.isSuccessful)
+                {
                     val restaurants = response.body()?.businesses
-
-                    val firstRestaurant = restaurants?.get(0)
+                    val firstRestaurant = restaurants?.get(currentIndex)
                     restaurantTextView.text = "Name: ${firstRestaurant?.name}, Rating: ${firstRestaurant?.rating}"
 
                     firstRestaurant?.let {
@@ -66,7 +68,9 @@ class FoodFragment : Fragment() {
                         // Here's a basic example using Picasso library
                         Glide.with(requireContext()).load(imageUrl).into(restaurantImageView)
                     }
-                } else {
+
+                } else
+                {
                     Log.e("Yelp", "Failed to get response: ${response.errorBody()?.string()}")
                 }
             }
@@ -76,6 +80,9 @@ class FoodFragment : Fragment() {
             }
         })
     }
+
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -90,6 +97,14 @@ class FoodFragment : Fragment() {
         val submitCityButton = view.findViewById<Button>(R.id.foodSearch)
 
         submitCityButton.setOnClickListener{
+            val location = view.findViewById<EditText>(R.id.foodCityET).text.toString()
+            fetchLocalRestaurants(location)
+        }
+
+        val nextRestaurant = view.findViewById<Button>(R.id.showNextResturantButton)
+
+        nextRestaurant.setOnClickListener{
+            ++currentIndex
             val location = view.findViewById<EditText>(R.id.foodCityET).text.toString()
             fetchLocalRestaurants(location)
         }
