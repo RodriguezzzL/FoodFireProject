@@ -1,5 +1,6 @@
 package Fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -10,6 +11,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import com.example.foodfireproject.R
 import com.example.foodfireproject.YelpService
 import com.example.foodfireproject.models.YelpSearchResult
@@ -17,6 +19,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import com.bumptech.glide.Glide
+import com.example.foodfireproject.Home
 import com.example.foodfireproject.models.YelpBusiness
 
 
@@ -56,27 +59,38 @@ class FoodFragment : Fragment() {
         val call = YelpService.api.searchRestaurants(YelpService.getAuthHeader(), "restaurants", location)
         call.enqueue(object : Callback<YelpSearchResult> {
             override fun onResponse(call: Call<YelpSearchResult>, response: Response<YelpSearchResult>) {
-                if (response.isSuccessful)
-                {
+                if (response.isSuccessful) {
                     val restaurants = response.body()?.businesses
-                    val firstRestaurant = restaurants?.get(currentIndex)
-                    restaurantTextView.text = "Name: ${firstRestaurant?.name}, Rating: ${firstRestaurant?.rating}"
+                    val totalRestaurants = restaurants?.size ?: 0
 
-                    firstRestaurant?.let {
-                        val imageUrl = it.image_url // Assuming there's an imageUrl property in your YelpSearchResult model
-                        // You can use any image loading library or load the image asynchronously
-                        // Here's a basic example using Picasso library
-                        Glide.with(requireContext()).load(imageUrl).into(restaurantImageView)
+                    if (totalRestaurants > 0) {
+                        val firstRestaurant = restaurants?.get(currentIndex)
+                        restaurantTextView.text = "Name: ${firstRestaurant?.name}, Rating: ${firstRestaurant?.rating}"
+
+                        firstRestaurant?.let {
+                            val imageUrl = it.image_url
+                            // Using Glide library to load the image
+                            Glide.with(requireContext()).load(imageUrl).into(restaurantImageView)
+                        }
+
+                        if (currentIndex == totalRestaurants - 1) {
+                            Toast.makeText(requireContext(), "Out of local restaurants! Select new city", Toast.LENGTH_LONG).show()
+                            Log.d("Yelp", "Last restaurant reached")
+                            startActivity(Intent(requireActivity(),Home::class.java))
+                        }
+                    } else {
+                        Toast.makeText(requireContext(), "No restaurants found", Toast.LENGTH_LONG).show()
+                        Log.d("Yelp", "No restaurants found")
                     }
-
-                } else
-                {
+                } else {
                     Log.e("Yelp", "Failed to get response: ${response.errorBody()?.string()}")
+                    Toast.makeText(requireContext(), "Failed to get response", Toast.LENGTH_LONG).show()
                 }
             }
 
             override fun onFailure(call: Call<YelpSearchResult>, t: Throwable) {
                 Log.e("Yelp", "Network request failed: ${t.message}")
+                Toast.makeText(requireContext(), "Network request failed", Toast.LENGTH_LONG).show()
             }
         })
     }
